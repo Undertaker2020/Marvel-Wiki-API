@@ -1,15 +1,15 @@
-import {Component} from "react";
+import { Component } from 'react';
 import MarvelService from "../Services/MarvelService.js";
+import Skeleton from "./Skeleton.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
 import Spinner from "./Spinner.jsx";
-import Skeleton from "./Skeleton.jsx";
 
 class CharInfo extends Component {
 
     state = {
         char: null,
         loading: false,
-        error: false,
+        error: false
     }
 
     marvelService = new MarvelService();
@@ -18,48 +18,50 @@ class CharInfo extends Component {
         this.updateChar();
     }
 
-    componentDidUpdate(prevProps) {
-        if(this.props.charId !== prevProps.charId) {
+    componentDidUpdate(prevProps){
+        if (this.props.charId !== prevProps.charId) {
             this.updateChar();
         }
     }
 
     updateChar = () => {
         const {charId} = this.props;
-        if(!charId){
+        if (!charId) {
             return;
         }
+
         this.onCharLoading();
 
         this.marvelService
             .getCharacter(charId)
             .then(this.onCharLoaded)
-            .catch(this.onError)
+            .catch(this.onError);
     }
 
     onCharLoaded = (char) => {
         this.setState({
             char,
             loading: false
-        });
+        })
     }
 
     onCharLoading = () => {
         this.setState({
             loading: true
-        });
+        })
     }
 
     onError = () => {
         this.setState({
-            loading: false, error: true,
-        });
+            loading: false,
+            error: true
+        })
     }
 
     render() {
-        const {char,loading, error} = this.state;
+        const {char, loading, error} = this.state;
 
-        const skeleton = char || loading || error ? null : <Skeleton />
+        const skeleton = char || loading || error ? null : <Skeleton/>;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error || !char) ? <View char={char}/> : null;
@@ -71,7 +73,7 @@ class CharInfo extends Component {
                 {spinner}
                 {content}
             </div>
-        );
+        )
     }
 }
 
@@ -80,7 +82,7 @@ const View = ({char}) => {
 
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imgStyle = {'objectFit' : 'unset'};
+        imgStyle = {'objectFit' : 'contain'};
     }
 
     return (
@@ -107,6 +109,7 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
+                        // eslint-disable-next-line
                         if (i > 9) return;
                         return (
                             <li key={i} className="char__comics-item">
@@ -117,8 +120,8 @@ const View = ({char}) => {
                 }
             </ul>
         </>
+
     )
 }
-
 
 export default CharInfo;
