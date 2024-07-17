@@ -19,7 +19,8 @@ class App extends Component {
     }
 
     render() {
-        return (<div className="app">
+        return (
+            <div className="app">
                 <Header/>
                 <main>
                     <RandomChar/>
@@ -34,7 +35,6 @@ class App extends Component {
                     <img className="bg-decoration" src="../src/Image/vision.png" alt="vision"/>
                 </main>
             </div>
-
         );
     }
 }
