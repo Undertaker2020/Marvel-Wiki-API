@@ -5,26 +5,33 @@ import Skeleton from "./Skeleton.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
 import Spinner from "./Spinner.jsx";
 
+// CharInfo component handles the display of detailed information about a selected character
 class CharInfo extends Component {
 
+    // Initial state of the component
     state = {
-        char: null,
-        loading: false,
-        error: false
+        char: null, // Character information
+        loading: false, // Loading state
+        error: false // Error state
     }
 
+    // Instance of MarvelService to fetch character data
     marvelService = new MarvelService();
 
+    // Lifecycle method called when the component is mounted
     componentDidMount() {
         this.updateChar();
     }
 
+    // Lifecycle method called before the component is updated
+    // It checks if the charId prop has changed and updates the character data if necessary
     componentDidUpdate(prevProps){
         if (this.props.charId !== prevProps.charId) {
             this.updateChar();
         }
     }
 
+    // Function to request character data from the Marvel API
     updateChar = () => {
         const {charId} = this.props;
         if (!charId) {
@@ -39,6 +46,8 @@ class CharInfo extends Component {
             .catch(this.onError);
     }
 
+    // Function to update the state with the new character information
+    // char: object - Object containing character information
     onCharLoaded = (char) => {
         this.setState({
             char,
@@ -46,12 +55,14 @@ class CharInfo extends Component {
         })
     }
 
+    // Function to set the loading state to true
     onCharLoading = () => {
         this.setState({
             loading: true
         })
     }
 
+    // Function to handle errors during API requests
     onError = () => {
         this.setState({
             loading: false,
@@ -78,9 +89,12 @@ class CharInfo extends Component {
     }
 }
 
+// Functional component to display character information
+// char: object - Object containing character information
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
+    // Adjust the image style if the thumbnail is not available
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         imgStyle = {'objectFit' : 'contain'};
@@ -125,6 +139,7 @@ const View = ({char}) => {
     )
 }
 
+// PropTypes to ensure charId prop is a number and is required
 CharInfo.propTypes = {
     charId: PropTypes.number,
 }

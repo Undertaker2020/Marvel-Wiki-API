@@ -12,17 +12,20 @@ class CharContent extends Component {
 
     }
 
+    // Initial state of the component
     state = {
-        charList: [],
-        loading: true,
-        error: false,
-        newItemLoading: false,
-        offset: 210,
-        charEnded: false
+        charList: [], // List of characters
+        loading: true, // Initial loading state
+        error: false, // Error state
+        newItemLoading: false, // State for new items loading
+        offset: 210, // Offset for API requests
+        charEnded: false // State to check if all characters are loaded
     }
 
+    // Instance of MarvelService to fetch character data
     marvelService = new MarvelService();
 
+    // Lifecycle method called when the component is mounted
     componentDidMount() {
         if (this.state.offset < 219) {
             this.onRequest();
@@ -30,10 +33,12 @@ class CharContent extends Component {
         window.addEventListener("scroll", this.onScroll);
     }
 
+    // Lifecycle method called before the component is unmounted
     componentWillUnmount() {
         window.removeEventListener("scroll", this.onScroll);
     }
 
+    // Function to request character data from the Marvel API
     onRequest = (offset) => {
         this.onCharListLoading();
         this.marvelService.getAllCharacters(offset)
@@ -41,12 +46,14 @@ class CharContent extends Component {
             .catch(this.onError);
     }
 
+    // Set the new item loading state to true
     onCharListLoading = () => {
         this.setState({
             newItemLoading: true
         })
     }
 
+    // Function to handle the scroll event for infinite scrolling
     onScroll = () => {
         if (this.state.offset < 219 || this.state.newItemLoading) return;
         if (this.state.charEnded)
@@ -58,6 +65,8 @@ class CharContent extends Component {
         }
     };
 
+    // Function to update the state with the new character list
+    // newCharList: array - Array of new character objects
     onCharListLoaded = (newCharList) => {
         let ended = false;
         if(newCharList.length < 9){
@@ -71,6 +80,8 @@ class CharContent extends Component {
             charEnded: ended,
         }))
     }
+
+    // Function to handle errors during API requests
     onError = () => {
         this.setState({
             error: true,
@@ -79,6 +90,8 @@ class CharContent extends Component {
         })
     }
 
+    // Function to render the list of character items
+    // arr: array - Array of character objects
     renderItems(arr) {
         const items = arr.map((item) => {
             let imgStyle = {'objectFit': 'cover'};
@@ -125,6 +138,7 @@ class CharContent extends Component {
     }
 }
 
+// PropTypes to ensure onCharSelected prop is a function and is required
 CharContent.propTypes ={
     onCharSelected: PropTypes.func.isRequired,
 }
