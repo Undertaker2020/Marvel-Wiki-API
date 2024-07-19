@@ -6,12 +6,17 @@ import CharInfo from "./Components/CharInfo.jsx";
 import './style.min.css'
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
 
+// App component serves as the main component for the Marvel Wiki application
 class App extends Component {
-
+    // State to keep track of the selected character's ID
     state = {
+
         selectedChar: null
     }
-
+    /*
+    * Function to update the selected character's ID in the state.
+    * id: number - ID of the selected character
+    */
     onCharSelected = (id) => {
         this.setState({
             selectedChar: id

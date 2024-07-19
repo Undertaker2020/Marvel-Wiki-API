@@ -2,8 +2,10 @@ import {Component} from "react";
 import MarvelService from "../Services/MarvelService.js";
 import ErrorMessage from "./ErrorMessage.jsx";
 import Spinner from "./Spinner.jsx";
+import PropTypes from "prop-types";
 
-
+// CharContent component handles the display of a list of Marvel characters
+// It fetches the data from MarvelService and manages the loading and error states
 class CharContent extends Component {
     constructor(props) {
         super(props);
@@ -121,6 +123,10 @@ class CharContent extends Component {
             </div>
         );
     }
+}
+
+CharContent.propTypes ={
+    onCharSelected: PropTypes.func.isRequired,
 }
 
 export default CharContent;
