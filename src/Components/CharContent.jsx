@@ -90,18 +90,37 @@ class CharContent extends Component {
         })
     }
 
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
+    }
+
+    focusOnItem = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+        this.itemRefs[id].classList.add('char__item_selected');
+        this.itemRefs[id].focus();
+    }
+
     // Function to render the list of character items
     // arr: array - Array of character objects
     renderItems(arr) {
-        const items = arr.map((item) => {
+        const items = arr.map((item, i) => {
             let imgStyle = {'objectFit': 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit': 'unset'};
             }
             return (
-                <li className="char__item"
+                <li className={`char__item ${this.myRef ? 'char__item_selected' : ''}`}
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
+                    ref={this.setRef}
+                    onKeyDown={(e)=>{
+                        if (e.key === ' ' || e.key === 'Enter') {
+                            this.props.onCharSelected(item.id)
+                            this.focusOnItem(i)
+                        }
+                    }}
+                    onClick={() => {this.props.onCharSelected(item.id); this.focusOnItem(i)}}>
                         <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                 </li>
