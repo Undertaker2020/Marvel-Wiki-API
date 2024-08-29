@@ -1,10 +1,6 @@
-import Header from "./Components/Header.jsx";
-import RandomChar from "./Components/RandomChar.jsx";
-import CharContent from "./Components/CharContent.jsx";
-import CharInfo from "./Components/CharInfo.jsx";
-import './style.min.css'
-import ErrorBoundary from "./Components/ErrorBoundary.jsx";
+import { Header, RandomChar, CharContent, CharInfo, ErrorBoundary} from "@components"
 import {useState} from "react";
+import './style.min.css'
 
 // App component serves as the main component for the Marvel Wiki application
 const App = () => {
@@ -32,7 +28,7 @@ const App = () => {
                         <CharInfo charId={selectedChar}/>
                     </ErrorBoundary>
                 </div>
-                <img className="bg-decoration" src="../src/Image/vision.png" alt="vision"/>
+                <img className="bg-decoration" src="image/vision.png" alt="vision"/>
             </main>
         </div>
     );

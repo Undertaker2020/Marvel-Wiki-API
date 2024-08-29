@@ -1,4 +1,4 @@
-import errorImg from '../Image/error.gif';
+import errorImg from '../../image/error.gif';
 
 const ErrorMessage = () => {
     return (

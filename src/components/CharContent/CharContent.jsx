@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
-import MarvelService from "../Services/MarvelService.js";
-import ErrorMessage from "./ErrorMessage.jsx";
-import Spinner from "./Spinner.jsx";
+import MarvelService from "../../services/MarvelService.js";
+import { Spinner, ErrorMessage } from "@components";
 import PropTypes from "prop-types";
 
 // CharContent component handles the display of a list of Marvel characters

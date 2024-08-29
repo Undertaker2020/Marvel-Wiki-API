@@ -1,8 +1,7 @@
 import {Component} from "react";
-import MarvelService from "../Services/MarvelService.js";
-import mjolnir from '../Image/mjolnir.png'
-import Spinner from "./Spinner.jsx";
-import ErrorMessage from "./ErrorMessage.jsx";
+import MarvelService from "../../services/MarvelService.js";
+import mjolnir from '../../image/mjolnir.png'
+import { Spinner, ErrorMessage } from "@components"
 
 class RandomChar extends Component {
 
